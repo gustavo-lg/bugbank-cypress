@@ -5,11 +5,9 @@ Given('que o usuário está logado e na home', () => {
   const email = `user_${uid}@bugbank.com`
   const senha = 'Senha@123'
 
-  // 1- Cadastrar um usuário
   cy.cadastrarUsuario('Usuario Teste', email, senha, true)
   cy.get('#btnCloseModal').click()
 
-  // 2- Logar com o usuário
   cy.get('.card__login form input[name="email"]').clear().type(email)
   cy.get('.card__login form input[name="password"]').clear().type(senha)
   cy.get('.card__login form button[type="submit"]').click()

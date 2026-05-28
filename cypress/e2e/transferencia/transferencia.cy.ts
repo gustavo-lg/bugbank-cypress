@@ -2,7 +2,6 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
 import transferenciaPage from '../../pages/TransferenciaPage'
 import extratoPage from '../../pages/ExtratoPage'
 
-// ─── Tipos ─────────────────────────────────────────────────────────────────────
 interface TransferenciaValida {
   valor: string
   descricao: string
@@ -24,7 +23,6 @@ interface BugBankUser {
   logged: boolean
 }
 
-// ─── Conta destino fixa usada como alvo de transferências ────────────────────
 const EMAIL_DESTINO = 'destino@bugbank.com'
 const ACCOUNT_DESTINO = '2222-1'
 
@@ -45,31 +43,23 @@ function criarContaDestinoSeNecessario(win: Window): void {
   }
 }
 
-// ─── Contexto ─────────────────────────────────────────────────────────────────
-
 Given('que o usuário está logado e na tela de Transferência', () => {
   const uid = Date.now()
   const email = `user_${uid}@bugbank.com`
   const senha = 'Senha@123'
 
-  // Alias para uso nos steps seguintes
   cy.wrap(email).as('registeredEmail')
 
-  // 1- Cadastrar um usuário com saldo
   cy.cadastrarUsuario('Usuario Teste', email, senha, true)
   cy.get('#btnCloseModal').click()
 
-  // 2- Logar com o usuário
   cy.get('.card__login form input[name="email"]').clear().type(email)
   cy.get('.card__login form input[name="password"]').clear().type(senha)
   cy.get('.card__login form button[type="submit"]').click()
   cy.get('#textBalance').should('be.visible')
 
-  // 3- Ir para a tela de transferência
   transferenciaPage.navegarParaTransferencia()
 })
-
-// ─── Steps que ajustam o saldo antes do cenário ───────────────────────────────
 
 When('o saldo da conta é {string}', (saldo: string) => {
   const valorNumerico = parseFloat(
@@ -90,8 +80,6 @@ When('o saldo da conta é {string}', (saldo: string) => {
     })
   })
 })
-
-// ─── Steps de Ação ────────────────────────────────────────────────────────────
 
 When('preencho todos os campos corretamente', () => {
   cy.fixture<{ valida: TransferenciaValida }>('transferencia').then(({ valida }) => {
@@ -159,8 +147,6 @@ When('preencho conta e valor corretamente mas deixo o valor em branco', () => {
 When('tento inserir {string} no campo número da conta', (texto: string) => {
   transferenciaPage.tentarDigitarNaConta(texto)
 })
-
-// ─── Steps de Verificação ─────────────────────────────────────────────────────
 
 Then('vejo a mensagem {string}', (mensagem: string) => {
   transferenciaPage.verificarMensagemModal(mensagem)

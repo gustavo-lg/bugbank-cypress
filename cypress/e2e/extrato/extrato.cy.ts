@@ -1,7 +1,5 @@
 import { Given, Then } from '@badeball/cypress-cucumber-preprocessor'
 
-// ─── Contexto ─────────────────────────────────────────────────────────────────
-
 /**
  * Setup real via UI — evita cy.reload() que re-monta o React e perde estado.
  *
@@ -19,16 +17,13 @@ Given('que o usuário está logado e na tela de Extrato', () => {
   const email = `user_${uid}@bugbank.com`
   const senha = 'Senha@123'
 
-  // 1- Cadastrar um usuário
   cy.cadastrarUsuario('Usuario Teste', email, senha, true)
   cy.get('#btnCloseModal').click()
 
-  // 2- Logar com o usuário
   cy.get('.card__login form input[name="email"]').clear().type(email)
   cy.get('.card__login form input[name="password"]').clear().type(senha)
   cy.get('.card__login form button[type="submit"]').click()
-  
-  // 3- Clicar no botão EXTRATO (no BugBank é o botão "Extrato" ou o link que leva para o extrato)
+
   cy.get('#btn-EXTRATO').click()
 })
 
@@ -37,20 +32,15 @@ Given('que o usuário está logado sem saldo e na tela de Extrato', () => {
   const email = `user_${uid}@bugbank.com`
   const senha = 'Senha@123'
 
-  // 1- Cadastrar um usuário sem saldo (quarto parâmetro como false)
   cy.cadastrarUsuario('Usuario Teste', email, senha, false)
   cy.get('#btnCloseModal').click()
 
-  // 2- Logar com o usuário
   cy.get('.card__login form input[name="email"]').clear().type(email)
   cy.get('.card__login form input[name="password"]').clear().type(senha)
   cy.get('.card__login form button[type="submit"]').click()
-  
-  // 3- Clicar no botão EXTRATO
+
   cy.get('#btn-EXTRATO').click()
 })
-
-// Steps de Verificação
 
 Then('o saldo exibido corresponde ao saldo {string}', (saldoEsperado: string) => {
   cy.get('#textBalanceAvailable')

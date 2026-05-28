@@ -2,7 +2,6 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
 import cadastroPage from '../../pages/CadastroPage'
 import loginPage from '../../pages/LoginPage'
 
-// ─── Tipos ─────────────────────────────────────────────────────────────────────
 interface NovoUsuario {
   nome: string
   email: string
@@ -17,19 +16,14 @@ interface BugBankUser {
   balance: number
 }
 
-// ─── Contexto ─────────────────────────────────────────────────────────────────
-
 Given('que estou na página de Cadastro do BugBank', () => {
   cy.visit('/')
   loginPage.clicarCadastrar()
 })
 
-// ─── Steps de Ação ────────────────────────────────────────────────────────────
-
 When('preencho todos os campos corretamente', () => {
   cy.fixture<{ novo: NovoUsuario }>('usuarios').then(({ novo }) => {
     const emailUnico = `teste_${Date.now()}@bugbank.com`
-    // Alias para uso no step "ao fazer login o saldo exibido é"
     cy.wrap(emailUnico).as('emailCadastrado')
     cadastroPage
       .preencherNome(novo.nome)
@@ -81,7 +75,6 @@ When('deixo o campo {string} em branco', (campo: string) => {
 })
 
 When('preencho os demais campos corretamente', () => {
-  // Campos já foram preenchidos no step anterior "deixo o campo X em branco"
 })
 
 When('preencho {string} com {string}', (campo: string, valor: string) => {
@@ -97,8 +90,6 @@ When('preencho {string} com {string}', (campo: string, valor: string) => {
   }
 })
 
-// ─── Steps de Verificação ─────────────────────────────────────────────────────
-
 Then('vejo o número da conta criada', () => {
   cadastroPage.verificarContaCriada()
 })
@@ -106,7 +97,6 @@ Then('vejo o número da conta criada', () => {
 Then('ao fazer login o saldo exibido é {string}', (saldoEsperado: string) => {
   cadastroPage.fecharModal()
 
-  // Usa o alias definido no step "preencho todos os campos corretamente"
   cy.get<string>('@emailCadastrado').then((email) => {
     cy.window().then((win) => {
       const userRaw = win.localStorage.getItem(email)
@@ -119,7 +109,7 @@ Then('ao fazer login o saldo exibido é {string}', (saldoEsperado: string) => {
           .should('be.visible')
           .invoke('text')
           .then((texto) => {
-            // Normaliza qualquer espaço especial (&nbsp; U+00A0) antes de comparar
+            // Normaliza U+00A0 (&nbsp;) antes de comparar
             const textoNormalizado = texto.replace(/\u00a0/g, ' ').trim()
             const saldoNormalizado = saldoEsperado.replace(/\u00a0/g, ' ').trim()
             expect(textoNormalizado).to.include(saldoNormalizado)

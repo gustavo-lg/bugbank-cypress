@@ -1,13 +1,9 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
 import loginPage from '../../pages/LoginPage'
 
-// ─── Contexto ─────────────────────────────────────────────────────────────────
-
 Given('que estou na página de Login do BugBank', () => {
   loginPage.acessarPagina()
 })
-
-// ─── Steps de Ação ────────────────────────────────────────────────────────────
 
 When('preencho o e-mail {string} e a senha {string}', (email: string, senha: string) => {
   if (email === 'usuario@teste.com') {
@@ -42,8 +38,6 @@ When('preencho o e-mail {string}', (email: string) => {
 When('deixo o campo Senha em branco', () => {
   loginPage.limparSenha()
 })
-
-// ─── Steps de Verificação ─────────────────────────────────────────────────────
 
 Then('sou redirecionado para a home', () => {
   cy.url().should('include', '/home')
