@@ -1,0 +1,32 @@
+{
+  "name": "bugbank-cypress",
+  "version": "1.0.0",
+  "description": "Automação de testes E2E para BugBank usando Cypress + TypeScript + BDD (Gherkin)",
+  "private": true,
+  "scripts": {
+    "test": "cypress run",
+    "test:open": "cypress open",
+    "test:login": "cypress run --spec cypress/e2e/login/login.feature",
+    "test:cadastro": "cypress run --spec cypress/e2e/cadastro/cadastro.feature",
+    "test:transferencia": "cypress run --spec cypress/e2e/transferencia/transferencia.feature",
+    "test:extrato": "cypress run --spec cypress/e2e/extrato/extrato.feature",
+    "test:pagamento": "cypress run --spec cypress/e2e/pagamento/pagamento.feature",
+    "test:saque": "cypress run --spec cypress/e2e/saque/saque.feature"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.3",
+    "@types/node": "^22.0.0",
+    "cypress": "^13.17.0",
+    "docx": "^9.7.1",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.3"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/e2e/[filepath].cy.ts",
+      "cypress/e2e/[filepath]/**/*.cy.ts",
+      "cypress/support/step_definitions/**/*.{js,mjs,ts,tsx}"
+    ]
+  }
+}

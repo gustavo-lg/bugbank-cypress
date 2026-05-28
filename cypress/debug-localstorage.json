@@ -1,0 +1,8 @@
+{
+  "undefined": "[{\"id\":\"f3002246-ae07-4efe-81ba-ebbf3cfc82dd\",\"date\":\"27/05/2026\",\"type\":\"Abertura de conta\",\"transferValue\":1000,\"description\":\"Saldo adicionado ao abrir conta\"}]",
+  "logged": "user_1779916306835@bugbank.com",
+  "destino@bugbank.com": "{\"name\":\"Conta Destino\",\"email\":\"destino@bugbank.com\",\"password\":\"Senha@999\",\"accountNumber\":\"2222-1\",\"balance\":200,\"logged\":false}",
+  "user_1779916306835@bugbank.com": "{\"name\":\"Usuario Teste\",\"email\":\"user_1779916306835@bugbank.com\",\"password\":\"Senha@123\",\"accountNumber\":\"312-2\",\"balance\":800,\"logged\":true}",
+  "transaction:user_1779916306835@bugbank.com": "[{\"id\":\"f3002246-ae07-4efe-81ba-ebbf3cfc82dd\",\"date\":\"27/05/2026\",\"type\":\"Abertura de conta\",\"transferValue\":1000,\"description\":\"Saldo adicionado ao abrir conta\"},{\"id\":\"e1c63838-a3e7-4f94-b74f-e38946a183bb\",\"date\":\"27/05/2026\",\"type\":\"withdrawal\",\"transferValue\":-200,\"description\":\"Pagamento de servico\"}]",
+  "transaction:destino@bugbank.com": "[{\"id\":\"bb478a49-a68d-48b7-885d-bbb5c6f219a9\",\"date\":\"27/05/2026\",\"type\":\"input\",\"transferValue\":200,\"description\":\"Pagamento de servico\"}]"
+}

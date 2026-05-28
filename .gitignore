@@ -1,0 +1,32 @@
+# Dependências
+node_modules/
+
+# Build do Cypress
+cypress/downloads/
+cypress/screenshots/
+cypress/videos/
+
+# Cache do esbuild
+.cache/
+
+# Variáveis de ambiente
+.env
+.env.local
+
+# Logs e artefatos de execução
+*.log
+npm-debug.log*
+final-run.txt
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db

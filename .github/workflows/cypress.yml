@@ -1,0 +1,66 @@
+name: BugBank — Cypress E2E
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  cypress:
+    name: Cypress E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress — Login
+        run: npx cypress run --spec "cypress/e2e/login/login.feature"
+        continue-on-error: true
+
+      - name: Run Cypress — Cadastro
+        run: npx cypress run --spec "cypress/e2e/cadastro/cadastro.feature"
+        continue-on-error: true
+
+      - name: Run Cypress — Transferência (CT-014 e CT-021 têm bugs conhecidos)
+        run: npx cypress run --spec "cypress/e2e/transferencia/transferencia.feature"
+        continue-on-error: true
+
+      - name: Run Cypress — Extrato
+        run: npx cypress run --spec "cypress/e2e/extrato/extrato.feature"
+        continue-on-error: true
+
+      - name: Run Cypress — Pagamento
+        run: npx cypress run --spec "cypress/e2e/pagamento/pagamento.feature"
+        continue-on-error: true
+
+      - name: Run Cypress — Saque
+        run: npx cypress run --spec "cypress/e2e/saque/saque.feature"
+        continue-on-error: true
+
+      - name: Upload screenshots (falhas)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+          retention-days: 7

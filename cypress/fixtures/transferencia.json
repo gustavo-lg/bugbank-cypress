@@ -1,0 +1,19 @@
+{
+  "valida": {
+    "valor": "200",
+    "descricao": "Pagamento de servico"
+  },
+  "invalida": {
+    "conta": "9999-9",
+    "valor": "100",
+    "descricao": "Teste"
+  },
+  "semSaldo": {
+    "valor": "9999",
+    "descricao": "Teste saldo"
+  },
+  "valorZero": {
+    "valor": "0",
+    "descricao": "Teste zero"
+  }
+}

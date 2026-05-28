@@ -1,0 +1,16 @@
+{
+  "valido": {
+    "email": "usuario@teste.com",
+    "senha": "Senha@123"
+  },
+  "invalido": {
+    "email": "naoexiste@bugbank.com",
+    "senha": "qualquer"
+  },
+  "novo": {
+    "nome": "Gustavo Teste",
+    "email": "novo@teste.com",
+    "senha": "Senha@456",
+    "confirmarSenha": "Senha@456"
+  }
+}
